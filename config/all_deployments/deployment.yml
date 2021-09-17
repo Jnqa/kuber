@@ -21,7 +21,7 @@ spec:
             - containerPort: 3000
           env:
             - name: SOME_ENV
-              value: Uselessphrase
+              value: Uselessphrase2
 
           livenessProbe:
             httpGet:
