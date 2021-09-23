@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: latest-service
+  labels:
+    app: latest-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: latest-service
+  template:
+    metadata:
+      labels:
+        app: latest-service
+    spec:
+      containers:
+        - name: latest-service
+          image: IMAGENAME
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+            - name: WEB_BUNDLES_URL
+              value: "https://api-7872423500061383086-499814.firebaseio.com/config/v2/web-bundles/bundle/latest.json"
+            - name: SQUDEX_LATEST_DB_URL
+              value: "https://prod.zebr-a.com/squidex/cache/6402afa4-b358-4d06-875d-d3fc1f3f78cd"
+            - name: SQUDEX_LATEST_DB_URL_DEV
+              value: "https://prod.zebr-a.com/squidex/cache/6402afa4-b358-4d06-875d-d3fc1f3f78cd?draft=1"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 3
+
+      imagePullSecrets:
+        - name: dockerconfigjson-github-com
