@@ -27,9 +27,8 @@ jobs:
 
     - name: Kustomize dev
       run: |
-        cd ./configs/${{ env.SERVICE_NAME }}
-        (cd overlays/dev && kustomize edit set image IMAGENAME=*:${{ env.VERSION }})
-        kustomize build . > kustomization.yaml
+        (cd ./configs/${{ env.SERVICE_NAME }}/overlays/dev && kustomize edit set image IMAGENAME=*:${{ env.VERSION }})
+        kustomize build ./configs/${{ env.SERVICE_NAME }}/ > kustomization.yaml
       
     - name: Create pull request
       id: cpr
@@ -52,9 +51,8 @@ jobs:
     
     - name: Kustomize prod
       run: |
-        cd ./configs/${{ env.SERVICE_NAME }}
-        (cd overlays/prod && kustomize edit set image IMAGENAME=*:${{ env.VERSION }})
-        kustomize build . > kustomization.yaml
+        (cd ./configs/${{ env.SERVICE_NAME }}/overlays/prod && kustomize edit set image IMAGENAME=*:${{ env.VERSION }})
+        kustomize build ./configs/${{ env.SERVICE_NAME }}/ > kustomization.yaml
     
     - name: Create pull request
       uses: peter-evans/create-pull-request@v3
