@@ -31,17 +31,29 @@ jobs:
         (cd overlays/dev && kustomize edit set image IMAGENAME=*:${{ env.VERSION }})
         kustomize build . > kustomization.yaml
       
-    - name: Push to dev
-      run: git push origin dev
+    - name: Create pull request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        branch: dev-${{ env.repository_name }}
+        base: dev
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        commit-message: Upgraded ${{ github.repository }} to ${{ env.VERSION }}
+        title: Upgraded ${{ github.repository }} to ${{ env.VERSION }}
+        draft: true
 
-    # - name: Create pull request
-    #   uses: peter-evans/create-pull-request@v3
-    #   with:
-    #     branch: dev
-    #     token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-    #     commit-message: Upgraded ${{ github.repository }} to ${{ env.VERSION }}
-    #     title: Upgraded ${{ github.repository }} to ${{ env.VERSION }}
-    #     draft: true
+    - name: Create Pull Request
+      id: cpr
+      uses: peter-evans/create-pull-request@v3
+      with:
+        token: ${{ secrets.PAT }}
+
+    - name: Enable Pull Request Automerge
+      if: steps.cpr.outputs.pull-request-operation == 'created'
+      uses: peter-evans/enable-pull-request-automerge@v1
+      with:
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+        merge-method: merge
     
     - name: Kustomize prod
       run: |
