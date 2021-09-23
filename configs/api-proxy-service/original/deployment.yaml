@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-proxy-service
+  labels:
+    app: api-proxy-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-proxy-service
+  template:
+    metadata:
+      labels:
+        app: api-proxy-service
+    spec:
+      containers:
+        - name: api-proxy-service
+          image: ghcr.io/zebrainy/api-proxy-service:v1.0.7
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+            - name: GAME_SERVER_URL
+              value: "https://api.skazbuka.org/api"
+            - name: DEV_GAME_SERVER_URL
+              value: "https://dev-api.skazbuka.org/api"
+            - name: PROXY_GAME_SERVER_URL
+              value: "https://proxy.zebr-a.com/api/"
+            - name: PROXY_IS_SERVER_URL
+              value: "https://proxy.zebr-a.com/auth/"
+            - name: PROXY_DEV_GAME_SERVER_URL
+              value: "https://proxy.zebr-a.com/dev-api/"
+            - name: PROXY_DEV_IS_SERVER_URL
+              value: "https://proxy.zebr-a.com/dev-auth/"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 3
+
+      imagePullSecrets:
+        - name: dockerconfigjson-github-com

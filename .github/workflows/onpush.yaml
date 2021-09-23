@@ -1,0 +1,58 @@
+name: Release application
+
+on:
+  push:
+
+env:
+  SERVICE_NAME: api-proxy-service
+  SOMETHING: plus
+  IMAGEREP: ghcr.io/zebrainy/api-proxy-service
+  IMAGETAG: "1.2.3"
+  VERSION: v0.0.5
+
+jobs:
+  build-publish-deploy:
+    name: Build, Publish and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    # - name: Checkout
+    #   uses: actions/checkout@v2
+    
+    - name: Checkout kuber (k8s)
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        repository: Jnqa/kuber
+
+    - name: Kustomize dev
+      run: |
+        cd ./configs/${{ env.SERVICE_NAME }}
+        (cd overlays/dev && kustomize edit set image IMAGENAME=*:${{ env.VERSION }})
+        kustomize build . > kustomization.yaml
+
+    - name: Create pull request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        branch: dev
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        commit-message: Upgraded ${{ github.repository }} to ${{ env.VERSION }}
+        title: Upgraded ${{ github.repository }} to ${{ env.VERSION }}
+        draft: true
+    
+    - name: Kustomize prod
+      run: |
+        cd ./configs/${{ env.SERVICE_NAME }}
+        (cd overlays/prod && kustomize edit set image IMAGENAME=*:${{ env.VERSION }})
+        kustomize build . > kustomization.yaml
+    
+    - name: Create pull request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        branch: ci/${{ env.repository_name }}
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        commit-message: Upgraded ${{ github.repository }} to ${{ env.VERSION }}
+        title: Upgraded ${{ github.repository }} to ${{ env.VERSION }}
+
+    - name: echo kustomization.yaml
+      run: echo kustomization.yaml || echo second && echo ./configs/kustomization.yaml
