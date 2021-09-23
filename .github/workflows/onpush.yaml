@@ -3,14 +3,10 @@ name: Release application
 on:
   push:
     branches:
-      - main
+      - dev
 
 env:
   SERVICE_NAME: api-proxy-service
-  SOMETHING: plus
-  IMAGEREP: ghcr.io/zebrainy/api-proxy-service
-  IMAGETAG: "1.2.3"
-  VERSION: v0.0.5
 
 jobs:
   build-publish-deploy:
@@ -18,51 +14,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # - name: Checkout
-    #   uses: actions/checkout@v2
-    
-    - name: Checkout kuber (k8s)
+    - name: Checkout
       uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        repository: Jnqa/kuber
 
-    - name: Kustomize dev
+    - name: Kustomize echo
       run: |
-        (cd ./configs/${{ env.SERVICE_NAME }}/overlays/dev/ && kustomize edit set image IMAGENAME=*:${{ env.VERSION }})
-        (cd ./configs/${{ env.SERVICE_NAME }}/ && kustomize build ./overlays/dev/ > kustomization.yaml)
-      
-    - name: Create pull request
-      id: cpr
-      uses: peter-evans/create-pull-request@v3
-      with:
-        branch: ci/dev-${{ env.repository_name }}
-        base: dev
-        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        commit-message: Upgraded ${{ github.repository }} to ${{ env.VERSION }}
-        title: Upgraded ${{ github.repository }} to ${{ env.VERSION }}
-        draft: true
-
-    - name: Enable Pull Request Automerge
-      if: steps.cpr.outputs.pull-request-operation == 'created'
-      uses: peter-evans/enable-pull-request-automerge@v1
-      with:
-        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
-        merge-method: merge
-    
-    - name: Kustomize prod
-      run: |
-        (cd ./configs/${{ env.SERVICE_NAME }}/overlays/prod/ && kustomize edit set image IMAGENAME=*:${{ env.VERSION }})
         (cd ./configs/${{ env.SERVICE_NAME }}/ && kustomize build ./overlays/prod/ > kustomization.yaml)
-    
-    - name: Create pull request
-      uses: peter-evans/create-pull-request@v3
-      with:
-        branch: ci/${{ env.repository_name }}
-        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        commit-message: Upgraded ${{ github.repository }} to ${{ env.VERSION }}
-        title: Upgraded ${{ github.repository }} to ${{ env.VERSION }}
-
+      
     - name: echo kustomization.yaml
-      run: echo kustomization.yaml || echo second && echo ./configs/kustomization.yaml
+      run: |
+        (cd ./configs/${{ env.SERVICE_NAME }}/ && cat kustomization.yaml)
