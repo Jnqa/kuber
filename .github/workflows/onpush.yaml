@@ -32,6 +32,7 @@ jobs:
         kustomize build . > kustomization.yaml
       
     - name: Create pull request
+      id: cpr
       uses: peter-evans/create-pull-request@v3
       with:
         branch: dev-${{ env.repository_name }}
@@ -40,12 +41,6 @@ jobs:
         commit-message: Upgraded ${{ github.repository }} to ${{ env.VERSION }}
         title: Upgraded ${{ github.repository }} to ${{ env.VERSION }}
         draft: true
-
-    - name: Create Pull Request
-      id: cpr
-      uses: peter-evans/create-pull-request@v3
-      with:
-        token: ${{ secrets.PAT }}
 
     - name: Enable Pull Request Automerge
       if: steps.cpr.outputs.pull-request-operation == 'created'
