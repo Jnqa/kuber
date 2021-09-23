@@ -3,6 +3,6 @@ kind: Kustomization
 images:
 - name: IMAGENAME
   newName: ghcr.io/zebrainy/api-proxy-service
-  newTag: v0.2.4
+  newTag: v0.2.5
 resources:
 - ../../base
