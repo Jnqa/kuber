@@ -27,7 +27,7 @@ jobs:
 
     - name: Kustomize dev
       run: |
-        (cd ./configs/${{ env.SERVICE_NAME }}/overlays/dev && kustomize edit set image IMAGENAME=*:${{ env.VERSION }})
+        (cd ./configs/${{ env.SERVICE_NAME }}/overlays/dev/ && kustomize edit set image IMAGENAME=*:${{ env.VERSION }})
         kustomize build ./configs/${{ env.SERVICE_NAME }}/ > kustomization.yaml
       
     - name: Create pull request
@@ -51,7 +51,7 @@ jobs:
     
     - name: Kustomize prod
       run: |
-        (cd ./configs/${{ env.SERVICE_NAME }}/overlays/prod && kustomize edit set image IMAGENAME=*:${{ env.VERSION }})
+        (cd ./configs/${{ env.SERVICE_NAME }}/overlays/prod/ && kustomize edit set image IMAGENAME=*:${{ env.VERSION }})
         kustomize build ./configs/${{ env.SERVICE_NAME }}/ > kustomization.yaml
     
     - name: Create pull request
