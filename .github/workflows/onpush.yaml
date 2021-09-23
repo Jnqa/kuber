@@ -28,13 +28,13 @@ jobs:
     - name: Kustomize dev
       run: |
         (cd ./configs/${{ env.SERVICE_NAME }}/overlays/dev/ && kustomize edit set image IMAGENAME=*:${{ env.VERSION }})
-        kustomize build ./configs/${{ env.SERVICE_NAME }}/overlays/dev/ > kustomization.yaml
+        (cd ./configs/${{ env.SERVICE_NAME }}/ && kustomize build ./overlays/dev/ > kustomization.yaml)
       
     - name: Create pull request
       id: cpr
       uses: peter-evans/create-pull-request@v3
       with:
-        branch: dev-${{ env.repository_name }}
+        branch: ci/dev-${{ env.repository_name }}
         base: dev
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         commit-message: Upgraded ${{ github.repository }} to ${{ env.VERSION }}
@@ -52,7 +52,7 @@ jobs:
     - name: Kustomize prod
       run: |
         (cd ./configs/${{ env.SERVICE_NAME }}/overlays/prod/ && kustomize edit set image IMAGENAME=*:${{ env.VERSION }})
-        kustomize build ./configs/${{ env.SERVICE_NAME }}/overlays/prod/ > kustomization.yaml
+        (cd ./configs/${{ env.SERVICE_NAME }}/ && kustomize build ./overlays/prod/ > kustomization.yaml)
     
     - name: Create pull request
       uses: peter-evans/create-pull-request@v3
