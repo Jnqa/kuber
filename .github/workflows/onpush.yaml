@@ -27,6 +27,11 @@ jobs:
 
     - name: Kustomize dev
       run: |
+        ls .
+        ls ./configs/
+        ls ./configs/${{ env.SERVICE_NAME }}/
+        ls ./configs/${{ env.SERVICE_NAME }}/overlays/
+        ls ./configs/${{ env.SERVICE_NAME }}/overlays/dev/
         (cd ./configs/${{ env.SERVICE_NAME }}/overlays/dev/ && kustomize edit set image IMAGENAME=*:${{ env.VERSION }})
         kustomize build ./configs/${{ env.SERVICE_NAME }}/ > kustomization.yaml
       
