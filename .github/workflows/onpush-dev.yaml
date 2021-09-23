@@ -1,0 +1,26 @@
+name: Release application
+
+on:
+  push:
+    branches:
+      - dev
+
+env:
+  SERVICE_NAME: api-proxy-service
+
+jobs:
+  build-publish-deploy:
+    name: Build, Publish and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Kustomize echo
+      run: |
+        (cd ./configs/${{ env.SERVICE_NAME }}/ && kustomize build ./overlays/dev/ > kustomization.yaml)
+      
+    - name: echo kustomization.yaml
+      run: |
+        (cd ./configs/${{ env.SERVICE_NAME }}/ && cat kustomization.yaml)

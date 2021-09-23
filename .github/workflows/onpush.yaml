@@ -2,6 +2,8 @@ name: Release application
 
 on:
   push:
+    branches:
+      - main
 
 env:
   SERVICE_NAME: api-proxy-service
