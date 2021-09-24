@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: latest-service
-          image: IMAGENAME
+          image: latest-service
           ports:
             - containerPort: 3000
           env:
