@@ -10,6 +10,6 @@ env:
 
 jobs:
   call-workflow-passing-data:
-    uses: jnqa/kuber/workflows/test.yaml@test
+    uses: jnqa/kuber/.github/workflows/test.yaml@test
     with:
       SERVICE_NAME: ${{ env.SERVICE_NAME }}
