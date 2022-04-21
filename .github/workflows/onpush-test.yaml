@@ -10,3 +10,4 @@ jobs:
     uses: jnqa/kuber/.github/workflows/test.yaml@test
     with:
       SERVICE_NAME: test-yo
+      DEMO: ${{ secrets.DEMO }}

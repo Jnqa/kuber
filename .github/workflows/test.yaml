@@ -6,6 +6,9 @@ on:
       SERVICE_NAME:
         required: true
         type: string
+    secrets: 
+      DEMO:
+        required: true
 
 jobs:
   example_job:
