@@ -1,0 +1,20 @@
+name: Reusable workflow test
+
+on:
+  workflow_call:
+    inputs:
+      SERVICE_NAME:
+        required: true
+        type: string
+
+jobs:
+  example_job:
+    name: Pass input to my-action
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: echo
+      run: |
+        echo "SERVICE_NAME: ${{ inputs.SERVICE_NAME }}"

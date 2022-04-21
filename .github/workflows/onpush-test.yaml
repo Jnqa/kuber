@@ -1,0 +1,15 @@
+name: Release application
+
+on:
+  push:
+    branches:
+      - test
+
+env:
+  SERVICE_NAME: test-yo
+
+jobs:
+  call-workflow-passing-data:
+    uses: jnqa/kuber/workflows/test.yaml@test
+    with:
+      SERVICE_NAME: ${{ env.SERVICE_NAME }}
