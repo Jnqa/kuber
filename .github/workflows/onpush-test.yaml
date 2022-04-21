@@ -5,11 +5,8 @@ on:
     branches:
       - test
 
-env:
-  SERVICE_NAME: test-yo
-
 jobs:
   call-workflow-passing-data:
     uses: jnqa/kuber/.github/workflows/test.yaml@test
     with:
-      SERVICE_NAME: ${{ env.SERVICE_NAME }}
+      SERVICE_NAME: test-yo
