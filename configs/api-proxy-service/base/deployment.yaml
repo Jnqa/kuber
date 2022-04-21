@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: api-proxy-service
-          image: IMAGENAME
+          image: api-proxy-service
           ports:
             - containerPort: 3000
           env:

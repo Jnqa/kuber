@@ -1,8 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 images:
-- name: IMAGENAME
-  newName: ghcr.io/zebrainy/api-2342vice
-  newTag: v0.0.1
+- name: latest-service
+  newName: ghcr.io/zebrainy/latest-service
+  newTag: v0.2.7
 resources:
 - ../../base
