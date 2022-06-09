@@ -17,10 +17,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Kustomize echo
-      run: |
-        (cd ./configs/${{ env.SERVICE_NAME }}/ && kustomize build ./overlays/prod/ > kustomization.yaml)
+    # - name: Kustomize echo
+    #   run: |
+    #     (cd ./configs/${{ env.SERVICE_NAME }}/ && kustomize build ./overlays/prod/ > kustomization.yaml)
       
-    - name: echo kustomization.yaml
-      run: |
-        (cd ./configs/${{ env.SERVICE_NAME }}/ && cat kustomization.yaml)
+    # - name: echo kustomization.yaml
+    #   run: |
+    #     (cd ./configs/${{ env.SERVICE_NAME }}/ && cat kustomization.yaml)
