@@ -5,8 +5,7 @@ on:
     # branches:
     # - 'no'
   schedule:
-    - cron: '12,17,24 10 * * *'
-    - cron: '* 10 * * *'
+    - cron: '*/5 * * * *'
 
 jobs:
   test_schedule:
