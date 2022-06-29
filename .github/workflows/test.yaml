@@ -21,3 +21,8 @@ jobs:
     - name: echo
       run: |
         echo "SERVICE_NAME: ${{ inputs.SERVICE_NAME }}"
+
+    - name: check logs
+      run: |
+        echo "job id is: ${{ github.job }}"
+        gh run view ${{ github.job }} --log 
