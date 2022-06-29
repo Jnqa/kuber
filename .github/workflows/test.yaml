@@ -24,10 +24,15 @@ jobs:
       run: |
         echo "SERVICE_NAME: ${{ inputs.SERVICE_NAME }}"
 
+  check_errors:
+    name: Check errors
+    runs-on: ubuntu-latest
+    needs: [example_job]
+    steps:
     - name: check logs
       if: env.GH_TOKEN != ''
       run: |
         echo "job id is: ${{ github.job }}"
-        gh run view ${{ github.run-id }} --log 
+        gh run view --job example_job --log 
       env:
         GH_TOKEN: ${{secrets.GH_TOKEN}}
