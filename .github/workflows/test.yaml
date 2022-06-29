@@ -24,9 +24,10 @@ jobs:
       run: |
         echo "SERVICE_NAME: ${{ inputs.SERVICE_NAME }}"
 
-    - run: echo PAT=${{secrets.PAT}} >> GITHUB_ENV
     - name: check logs
-      if: secrets.PAT != ''
+      if: env.PAT != ''
       run: |
         echo "job id is: ${{ github.job }}"
         gh run view ${{ github.run-id }} --log 
+      env:
+        PAT: ${{secrets.PAT}}
