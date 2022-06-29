@@ -26,7 +26,7 @@ jobs:
     
     - run: |
         echo "job id is: ${{ github.job-id }}"
-        echo ${{ github }}"
+        echo "${{ github }}"
 
   check_errors:
     name: Check errors
