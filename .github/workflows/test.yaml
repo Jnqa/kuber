@@ -38,7 +38,11 @@ jobs:
     - name: check logs
       if: env.GH_TOKEN != ''
       run: |
-        echo "job id is: ${{ github.job }}"
-        gh run view -j 123 --log 
+        echo github.job - ${{ github.job }}
+        echo github.job.container - ${{ github.job.container }}
+        echo github.job.container.id - ${{ github.job.container.id }}
+        echo github.job.container.network - ${{ github.job.container.network }}
+        echo github.job.services - ${{ github.job.services }}
+        echo github.job.status - ${{ github.job.status }}
       env:
         GH_TOKEN: ${{secrets.GH_TOKEN}}
