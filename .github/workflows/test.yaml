@@ -31,7 +31,7 @@ jobs:
       if: env.GH_TOKEN != ''
       run: |
         echo now: ${{ github.run_id }}
-        $run-id="2585339531"
-        gh run view $run-id --log
+        runid="2585339531"
+        gh run view $runid --log
       env:
         GH_TOKEN: ${{secrets.GH_TOKEN}}
