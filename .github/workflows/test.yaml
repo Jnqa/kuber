@@ -23,6 +23,9 @@ jobs:
     - name: echo
       run: |
         echo "SERVICE_NAME: ${{ inputs.SERVICE_NAME }}"
+    
+    - run: |
+        echo "job id is: ${{ github.job-id }}"
 
   check_errors:
     name: Check errors
@@ -34,7 +37,7 @@ jobs:
     - name: check logs
       if: env.GH_TOKEN != ''
       run: |
-        echo "job id is: ${{ github.job }}"
+        echo "job id is: ${{ github.job-id }}"
         gh run view --job example_job --log 
       env:
         GH_TOKEN: ${{secrets.GH_TOKEN}}
