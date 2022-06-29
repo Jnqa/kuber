@@ -39,6 +39,6 @@ jobs:
       if: env.GH_TOKEN != ''
       run: |
         echo "job id is: ${{ github.job }}"
-        gh run view ${{github.baker}} --log 
+        gh run view -j ${{github.baker}} --log 
       env:
         GH_TOKEN: ${{secrets.GH_TOKEN}}
