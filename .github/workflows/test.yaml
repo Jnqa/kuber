@@ -9,6 +9,8 @@ on:
     secrets: 
       DEMO:
         required: true
+      PAT:
+        required: false
 
 jobs:
   example_job:
@@ -23,6 +25,7 @@ jobs:
         echo "SERVICE_NAME: ${{ inputs.SERVICE_NAME }}"
 
     - name: check logs
+      if: ${{ secrets.PAT != "" }}
       run: |
         echo "job id is: ${{ github.job }}"
-        gh run view ${{ github.job }} --log 
+        gh run view ${{ github.run-id }} --log 
