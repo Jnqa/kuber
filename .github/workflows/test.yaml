@@ -38,4 +38,4 @@ jobs:
         ls
       env:
         GH_TOKEN: ${{secrets.GH_TOKEN}}
-      
+    - run: cat run-id.log
