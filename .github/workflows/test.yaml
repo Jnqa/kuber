@@ -30,12 +30,7 @@ jobs:
     - name: check logs
       if: env.GH_TOKEN != ''
       run: |
-        echo now: ${{ github.run_id }}
-        curl \
-        -H "Accept: application/vnd.github.v3+json" \
-        -H "Authorization: token ${{secrets.GH_TOKEN}}" \
-        https://api.github.com/repos/Jnqa/kuber/actions/runs/2585339531/logs
+        echo nikak(
         ls
       env:
         GH_TOKEN: ${{secrets.GH_TOKEN}}
-    - run: cat run-id.log
