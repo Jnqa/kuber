@@ -9,7 +9,7 @@ on:
     secrets: 
       DEMO:
         required: true
-      PAT:
+      GH_TOKEN:
         required: false
 
 jobs:
@@ -25,9 +25,9 @@ jobs:
         echo "SERVICE_NAME: ${{ inputs.SERVICE_NAME }}"
 
     - name: check logs
-      if: env.PAT != ''
+      if: env.GH_TOKEN != ''
       run: |
         echo "job id is: ${{ github.job }}"
         gh run view ${{ github.run-id }} --log 
       env:
-        PAT: ${{secrets.PAT}}
+        GH_TOKEN: ${{secrets.GH_TOKEN}}

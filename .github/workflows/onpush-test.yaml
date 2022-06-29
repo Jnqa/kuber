@@ -12,4 +12,4 @@ jobs:
       SERVICE_NAME: test-yo
     secrets:
       DEMO: ${{ secrets.DEMO }}
-      PAT: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
