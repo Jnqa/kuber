@@ -22,7 +22,8 @@ jobs:
     - name: Build with logs
       run: |
         mkdir ${{ runner.temp }}/build_logs
-        ./build.sh --log-path ${{ runner.temp }}/build_logs
+        echo ${{ strategy.job-index }}
+        # ./build.sh --log-path ${{ runner.temp }}/build_logs
     - name: echo
       run: |
         echo "SERVICE_NAME: ${{ inputs.SERVICE_NAME }}"
@@ -30,9 +31,9 @@ jobs:
         echo "job id is: ${{ github.job }}"
         echo "${{ github.run_id }}"
         echo "error someding"
-    - name: Upload logs on fail
-      # if: ${{ failure() }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: Build failure logs
-        path: ${{ runner.temp }}/build_logs
+    # - name: Upload logs on fail
+    #   # if: ${{ failure() }}
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: Build failure logs
+    #     path: ${{ runner.temp }}/build_logs
