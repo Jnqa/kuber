@@ -30,7 +30,7 @@ jobs:
     - name: check logs
       if: env.GH_TOKEN != ''
       run: |
-        now: echo ${{ github.run-id }}
+        echo now: ${{ github.run-id }}
         gh run view run-id --log
       env:
         GH_TOKEN: ${{secrets.GH_TOKEN}}
