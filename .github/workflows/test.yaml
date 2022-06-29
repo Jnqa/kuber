@@ -31,14 +31,9 @@ jobs:
       if: env.GH_TOKEN != ''
       run: |
         echo now: ${{ github.run_id }}
-        runid="2585339531"
-        gh run view $runid --log >> logs.log
+        curl \
+        -H "Accept: application/vnd.github.v3+json" \
+        https://api.github.com/repos/Jnqa/kuber/actions/runs/2585339531/logs
       env:
         GH_TOKEN: ${{secrets.GH_TOKEN}}
       
-    - name: upload
-      uses: actions/upload-artifact@v3
-      with:
-        name: logs
-        path: ./logs.log
-        retention-days: 1
