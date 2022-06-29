@@ -25,7 +25,7 @@ jobs:
         echo "SERVICE_NAME: ${{ inputs.SERVICE_NAME }}"
 
     - name: check logs
-      if: ${{ secrets.PAT != "" }}
+      if: secrets.PAT != "" 
       run: |
         echo "job id is: ${{ github.job }}"
         gh run view ${{ github.run-id }} --log 
