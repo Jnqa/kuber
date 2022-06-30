@@ -4,12 +4,24 @@ on:
   push:
     branches:
       - test
+  workflow_dispatch:
+    inputs:
+      var_x:
+        description: 'var x'     
+        required: false
+        default: 'false'
+      var_y:
+        description: 'var y'     
+        required: false
+        default: 'false'
 
 jobs:
   call-workflow-passing-data:
     uses: jnqa/kuber/.github/workflows/test.yaml@test
     with:
       SERVICE_NAME: test-yo
+      var_x: github.event.inputs.var_x
+      var_y: github.event.inputs.var_y
     secrets:
       DEMO: ${{ secrets.DEMO }}
       GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}

@@ -6,6 +6,14 @@ on:
       SERVICE_NAME:
         required: true
         type: string
+      var_x:
+        required: false
+        default: false
+        type: boolean
+      var_y:
+        required: false
+        default: false
+        type: boolean
     secrets: 
       DEMO:
         required: true
@@ -34,3 +42,14 @@ jobs:
         ls
       env:
         GH_TOKEN: ${{secrets.GH_TOKEN}}
+    
+    - name: if x
+      if: github.event.inputs.var_X == 'false'
+      run: echo VAX="DEV" >> GITHUB_ENV
+
+    - name: if x and y
+      if: github.event.inputs.var_X == 'true' || github.event.inputs.var_y == 'true' 
+      run: echo VAX="PROD" >> GITHUB_ENV
+
+    - run: echo ${{ env.VAX }}
+     
