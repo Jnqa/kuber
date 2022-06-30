@@ -36,12 +36,16 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     
+    - run: |
+        run: echo "var_x=false" >> GITHUB_ENV
+        run: echo "var_y=false" >> GITHUB_ENV
+
     - name: if x
-      if: github.event.inputs.var_x == 'false'
+      if: env.var_x == 'false'
       run: echo VAX="DEV" >> GITHUB_ENV
 
     - name: if x and y
-      if: github.event.inputs.var_x == 'true' || github.event.inputs.var_y == 'true' 
+      if: env.var_x == 'true' || env.var_y == 'true' 
       run: echo VAX="PROD" >> GITHUB_ENV
 
     - run: echo ${{ env.VAX }}
