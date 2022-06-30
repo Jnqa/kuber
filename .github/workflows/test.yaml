@@ -35,13 +35,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: check logs
-      if: env.GH_TOKEN != ''
-      run: |
-        echo nikak(
-        ls
-      env:
-        GH_TOKEN: ${{secrets.GH_TOKEN}}
     
     - name: if x
       if: github.event.inputs.var_X == 'false'
