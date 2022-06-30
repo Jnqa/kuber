@@ -8,11 +8,11 @@ on:
         type: string
       var_x:
         required: false
-        default: false
+        default: 'false'
         type: string
       var_y:
         required: false
-        default: false
+        default: 'false'
         type: string
     secrets: 
       DEMO:
@@ -37,11 +37,11 @@ jobs:
       uses: actions/checkout@v2
     
     - name: if x
-      if: github.event.inputs.var_X == 'false'
+      if: github.event.inputs.var_x == 'false'
       run: echo VAX="DEV" >> GITHUB_ENV
 
     - name: if x and y
-      if: github.event.inputs.var_X == 'true' || github.event.inputs.var_y == 'true' 
+      if: github.event.inputs.var_x == 'true' || github.event.inputs.var_y == 'true' 
       run: echo VAX="PROD" >> GITHUB_ENV
 
     - run: echo ${{ env.VAX }}
