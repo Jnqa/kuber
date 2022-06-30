@@ -37,8 +37,8 @@ jobs:
       uses: actions/checkout@v2
     
     - run: |
-        run: echo "var_x=false" >> GITHUB_ENV
-        run: echo "var_y=false" >> GITHUB_ENV
+        echo "var_x=false" >> GITHUB_ENV
+        echo "var_y=false" >> GITHUB_ENV
 
     - name: if x
       if: env.var_x == 'false'
