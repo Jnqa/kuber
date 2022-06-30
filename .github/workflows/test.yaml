@@ -41,11 +41,11 @@ jobs:
         echo "var_y=false" >> GITHUB_ENV
 
     - name: if x
-      if: env.var_x == 'false'
+      if: ${{ env.var_x == 'false' }}
       run: echo VAX="DEV" >> GITHUB_ENV
 
     - name: if x and y
-      if: env.var_x == 'true' || env.var_y == 'true' 
+      if: ${{ env.var_x == 'true' || env.var_y == 'true' }}
       run: echo VAX="PROD" >> GITHUB_ENV
 
     - run: echo ${{ env.VAX }}
