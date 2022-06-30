@@ -9,11 +9,11 @@ on:
       var_x:
         required: false
         default: false
-        type: boolean
+        type: string
       var_y:
         required: false
         default: false
-        type: boolean
+        type: string
     secrets: 
       DEMO:
         required: true
