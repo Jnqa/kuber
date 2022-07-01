@@ -32,5 +32,6 @@ jobs:
         run: |
           echo ENV_TYPE="PROD" >> $GITHUB_ENV
           echo IS_PROD="true" >> $GITHUB_ENV
+      - if: github.event.inputs.appstore != 'true'
+        run: echo IS_PROD="false" >> $GITHUB_ENV
       - run: echo ENV_TYPE=$ENV_TYPE && echo IS_PROD=$IS_PROD
-      - run: echo ENV_TYPE=${{ env.ENV_TYPE }} && echo IS_PROD=${{ env.IS_PROD }}
