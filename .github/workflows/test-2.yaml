@@ -15,8 +15,6 @@ on:
         required: false
         default: 'false'
 
-env:
-  job2: 'true'
 
 jobs:
   check:
@@ -42,6 +40,8 @@ jobs:
       - run: echo IS_PROD=${{ env.IS_PROD }}
   check2:
     runs-on: ubuntu-latest
-    if: env.job2 = 'true'
     steps:
-      - run: echo yes
+      - run: echo ${{ github.event.repository.name }}
+      - run: echo ${{ github.repository }}
+      - run: echo ::set-env name=GHA_BRANCH::$(echo $GITHUB_REF | awk -F / '{print $3}')
+      - run: echo ${{ env.GHA_BRANCH }}
