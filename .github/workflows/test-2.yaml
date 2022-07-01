@@ -1,0 +1,29 @@
+name: Test-2
+
+on:
+  push:
+    branches:
+      - test-2
+  workflow_dispatch:
+    inputs:
+      prod:
+        description: 'var x'     
+        required: true
+        default: 'false'
+      appstore:
+        description: 'var y'     
+        required: true
+        default: 'false'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo ENV_TYPE="PROD" >> $GITHUB_ENV
+      if: github.event.inputs.prod == 'true'
+    - run: echo ENV_TYPE="DEV" >> $GITHUB_ENV
+      if: github.event.inputs.prod != 'true'
+    - name: Set vars if upload to AppStore
+      if: github.event.inputs.appstore == 'true'
+      run: echo ENV_TYPE="PROD" >> $GITHUB_ENV
+    - run: echo ENV_TYPE=$ENV_TYPE 
