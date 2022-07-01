@@ -43,7 +43,7 @@ jobs:
     steps:
       - run: echo ${{ github.event.repository.name }}
       - run: | 
-        REPONAME=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')
-        echo $REPONAME
-        echo "REPONAME=$REPONAME" >> GITHUB_ENV
+          REPONAME=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')
+          echo $REPONAME
+          echo "REPONAME=$REPONAME" >> GITHUB_ENV
       - run: echo ${{ env.REPONAME }}
