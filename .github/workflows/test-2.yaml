@@ -15,11 +15,13 @@ on:
         required: false
         default: 'false'
 
+env:
+  TIMEOUT: 1
 
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: ${{ env.TIMEOUT }}
     # steps:
     #   - if: github.event.inputs.prod == 'true'
     #     run: echo ENV_TYPE="PROD" >> $GITHUB_ENV
@@ -50,10 +52,12 @@ jobs:
         run: sleep 10
       - name: outcome
         if: always()
-        run: echo ${{ steps.build.outcome }}
+        run: |
+          echo ${{ steps.build.outcome }}
+          echo 1
       - name: Fail
         timeout-minutes: 1
-        if: ${{ steps.build.outcome == 'failure' }}
+        if: ${{ steps.build.outcome == 'failure' }} || ${{ cancelled() }}
         run: echo fail
 
   # check2:
