@@ -20,31 +20,42 @@ jobs:
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 1
-    steps:
-      - if: github.event.inputs.prod == 'true'
-        run: echo ENV_TYPE="PROD" >> $GITHUB_ENV
-      - if: github.event.inputs.prod != 'true'
-        run: echo ENV_TYPE="DEV" >> $GITHUB_ENV
-      - name: Set PROD if upload to AppStore
-        if: github.event.inputs.appstore == 'true'
-        run: echo ENV_TYPE="PROD" >> $GITHUB_ENV
-      - run: echo ENV_TYPE=$ENV_TYPE
-      - run: echo ENV_TYPE=${{ env.ENV_TYPE }}
+    # steps:
+    #   - if: github.event.inputs.prod == 'true'
+    #     run: echo ENV_TYPE="PROD" >> $GITHUB_ENV
+    #   - if: github.event.inputs.prod != 'true'
+    #     run: echo ENV_TYPE="DEV" >> $GITHUB_ENV
+    #   - name: Set PROD if upload to AppStore
+    #     if: github.event.inputs.appstore == 'true'
+    #     run: echo ENV_TYPE="PROD" >> $GITHUB_ENV
+    #   - run: echo ENV_TYPE=$ENV_TYPE
+    #   - run: echo ENV_TYPE=${{ env.ENV_TYPE }}
 
-      - if: env.ENV_TYPE == 'PROD'
-        run: echo "IS_PROD=true" >> $GITHUB_ENV
+    #   - if: env.ENV_TYPE == 'PROD'
+    #     run: echo "IS_PROD=true" >> $GITHUB_ENV
         
-      - if: env.ENV_TYPE != 'PROD'
-        run: echo "IS_PROD=false" >> $GITHUB_ENV
+    #   - if: env.ENV_TYPE != 'PROD'
+    #     run: echo "IS_PROD=false" >> $GITHUB_ENV
      
-      - run: echo IS_PROD=$IS_PROD
-      - run: echo IS_PROD=${{ env.IS_PROD }}
-  check2:
-    runs-on: ubuntu-latest
+    #   - run: echo IS_PROD=$IS_PROD
+    #   - run: echo IS_PROD=${{ env.IS_PROD }}
     steps:
-      - run: echo ${{ github.event.repository.name }}
-      - run: | 
-          REPONAME=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')
-          echo $REPONAME
-          echo REPONAME=$REPONAME >> $GITHUB_ENV
-      - run: echo ${{ env.REPONAME }}
+      - name: Wait it
+        run: sleep 60
+      - name: Wait it 20
+        run: sleep 20
+      - name: Wait it 10
+        run: sleep 10
+      - name: Fail
+        if: failure()
+        run: echo fail
+
+  # check2:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo ${{ github.event.repository.name }}
+  #     - run: | 
+  #         REPONAME=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')
+  #         echo $REPONAME
+  #         echo REPONAME=$REPONAME >> $GITHUB_ENV
+  #     - run: echo ${{ env.REPONAME }}
