@@ -43,7 +43,7 @@ jobs:
       - name: Wait it
         run: sleep 10
       - name: Wait it 71
-        if: build
+        id: build
         timeout-minutes: 1
         run: sleep 1
       - name: Wait it 10
