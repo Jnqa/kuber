@@ -54,9 +54,12 @@ jobs:
           echo 1
       - name: Fail
         timeout-minutes: 1
+        if: ${{ steps.build.outcome == 'failure' }} && ${{ cancelled() }}
+        run: echo fail and cancelled
+      - name: Fail2
+        timeout-minutes: 1
         if: ${{ steps.build.outcome == 'failure' }} || ${{ cancelled() }}
-        run: echo fail
-
+        run: echo fail or cancelled
   # check2:
   #   runs-on: ubuntu-latest
   #   steps:
