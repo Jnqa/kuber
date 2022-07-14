@@ -19,6 +19,7 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 1
     steps:
       - if: github.event.inputs.prod == 'true'
         run: echo ENV_TYPE="PROD" >> $GITHUB_ENV
