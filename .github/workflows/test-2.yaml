@@ -49,6 +49,7 @@ jobs:
       - name: Wait it 10
         run: sleep 10
       - name: outcome
+        if: always()
         run: echo ${{ steps.build.outcome }}
       - name: Fail
         timeout-minutes: 1
