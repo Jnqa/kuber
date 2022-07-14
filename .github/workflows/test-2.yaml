@@ -19,7 +19,7 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 1
+    timeout-minutes: 5
     # steps:
     #   - if: github.event.inputs.prod == 'true'
     #     run: echo ENV_TYPE="PROD" >> $GITHUB_ENV
@@ -41,9 +41,10 @@ jobs:
     #   - run: echo IS_PROD=${{ env.IS_PROD }}
     steps:
       - name: Wait it
-        run: sleep 55
-      - name: Wait it 20
-        run: sleep 20
+        run: sleep 10
+      - name: Wait it 71
+        timeout-minutes: 1
+        run: sleep 71
       - name: Wait it 10
         run: sleep 10
       - name: Fail
