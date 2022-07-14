@@ -41,13 +41,14 @@ jobs:
     #   - run: echo IS_PROD=${{ env.IS_PROD }}
     steps:
       - name: Wait it
-        run: sleep 60
+        run: sleep 55
       - name: Wait it 20
         run: sleep 20
       - name: Wait it 10
         run: sleep 10
       - name: Fail
-        if: failure()
+        timeout-minutes: 1
+        if: canceled()
         run: echo fail
 
   # check2:
