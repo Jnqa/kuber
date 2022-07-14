@@ -53,7 +53,7 @@ jobs:
         run: echo ${{ steps.build.outcome }}
       - name: Fail
         timeout-minutes: 1
-        if: ${{ steps.build.outcome == 'cancelled' }}
+        if: ${{ steps.build.outcome == 'failure' }}
         run: echo fail
 
   # check2:
