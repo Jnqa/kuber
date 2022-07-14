@@ -45,14 +45,14 @@ jobs:
       - name: Wait it 71
         id: build
         timeout-minutes: 1
-        run: sleep 1
+        run: sleep 71
       - name: Wait it 10
         run: sleep 10
       - name: outcome
         run: echo ${{ steps.build.outcome }}
       - name: Fail
         timeout-minutes: 1
-        if: ${{ cancelled() }}
+        if: ${{ steps.build.outcome == 'cancelled' }}
         run: echo fail
 
   # check2:
