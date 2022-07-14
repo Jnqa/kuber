@@ -49,7 +49,7 @@ jobs:
       - name: Wait it 10
         run: sleep 10
       - name: outcome
-        run: echo ${{ steps.build.outcome == 'success' }}
+        run: echo ${{ steps.build.outcome }}
       - name: Fail
         timeout-minutes: 1
         if: ${{ cancelled() }}
